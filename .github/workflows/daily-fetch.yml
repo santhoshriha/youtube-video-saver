@@ -1,32 +1,28 @@
-name: Fetch YouTube Videos Daily
+name: Daily YouTube Video Fetch
 
 on:
   schedule:
-    - cron: '0 2 * * *' # Runs every day at 2:00 AM UTC
-  workflow_dispatch:    # Also lets you run manually
+    - cron: '0 0 * * *'  # Run once a day at midnight
 
 jobs:
-  fetch:
+  fetch-videos:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+    - name: Fetch latest videos
+      run: |
+        curl -s "https://www.youtube.com/feeds/videos.xml?channel_id=AsinaetNews" > videos.xml
+        curl -s "https://www.youtube.com/feeds/videos.xml?channel_id=JayaPlusChennai" >> videos.xml
+        python3 save_videos.py
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install Dependencies
-        run: npm install axios xml2js
-
-      - name: Run Script
-        run: node save-videos.js
-
-      - name: Commit and Push
-        run: |
-          git config user.name 'github-actions'
-          git config user.email 'github-actions@github.com'
-          git add .
-          git commit -m "Daily video fetch - $(date +'%Y-%m-%d')" || echo "No changes"
-          git push
+    - name: Commit and push videos
+      run: |
+        git config --global user.email "youremail@example.com"
+        git config --global user.name "Your Name"
+        git add videos.json
+        git commit -m "Update videos"
+        git push
