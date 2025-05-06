@@ -1,52 +1,39 @@
-$(document).ready(function() {
-  // Get today's date in YYYY-MM-DD format
-  const today = new Date().toISOString().split('T')[0];  // e.g., "2025-05-06"
+// Get the current date in YYYY-MM-DD format
+const today = new Date().toISOString().split('T')[0];
 
-  // Use this date in your URL to dynamically reference the JSON file
-  const jsonURL = `https://raw.githubusercontent.com/santhoshriha/youtube-video-saver/main/videos-${today}.json`;
+// Define the URL to fetch the videos JSON from GitHub
+const jsonURL = `https://raw.githubusercontent.com/santhoshriha/youtube-video-saver/main/videos-${today}.json`;
 
-  // Fetch the JSON data
+// Function to fetch the video data and display it
+function fetchVideos() {
+  // Clear the existing video list to prevent duplicates
+  $('#video-list').empty();
+
+  // Fetch the JSON file containing the list of videos
   $.getJSON(jsonURL, function(data) {
-    console.log(data); // You can use this data to display videos
-    // Now process the data to show videos on the page, for example:
-    data.forEach(video => {
-      $('#video-list').append(`
-        <div class="video-item">
-          <img src="${video.thumbnail}" alt="${video.title}" class="thumbnail">
-          <h3>${video.title}</h3>
-          <a href="${video.url}" target="_blank">Watch Video</a>
-        </div>
-      `);
-    });
+    // Check if data is available
+    if (data && data.length > 0) {
+      // Loop through each video object and create HTML elements to display the videos
+      data.forEach(video => {
+        $('#video-list').append(`
+          <div class="video-item">
+            <img src="${video.thumbnail}" alt="${video.title}" class="thumbnail">
+            <h3 class="video-title">${video.title}</h3>
+            <a href="${video.url}" target="_blank" class="video-link">Watch Video</a>
+          </div>
+        `);
+      });
+    } else {
+      // Show message if no videos found
+      $('#video-list').append('<p>No videos found for today.</p>');
+    }
   }).fail(function() {
     console.error('Error loading the JSON file');
+    $('#video-list').append('<p>Failed to load video data.</p>');
   });
-});
+}
 
-
-    // Click handler
-    $('#video-container').on('click', 'div[data-id]', function () {
-      const vid = $(this).data('id');
-      const title = $(this).data('title');
-      const thumb = $(this).data('thumb');
-
-      $('#modal-title').text(title);
-      $('#modal-thumb').attr('src', thumb);
-      $('#play-btn').data('id', vid);
-      $('#video-modal').removeClass('hidden');
-    });
-
-    // Play button
-    $('#play-btn').on('click', function () {
-      const id = $(this).data('id');
-      window.open(`https://www.youtube.com/watch?v=${id}`, '_blank');
-    });
-
-    // Close modal
-    $('#close-modal').on('click', function () {
-      $('#video-modal').addClass('hidden');
-    });
-  }).fail(() => {
-    $('#video-container').html('<p class="text-center text-red-500">Failed to load videos.</p>');
-  });
+// Call fetchVideos on page load
+$(document).ready(function() {
+  fetchVideos();
 });
