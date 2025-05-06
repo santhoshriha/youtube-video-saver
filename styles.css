@@ -1,74 +1,51 @@
+/* Basic Styling for the page */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
 }
 
-header {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
+#container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-#channels {
-    margin-top: 20px;
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
-#channels button {
-    background-color: #008cba;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 5px;
-    cursor: pointer;
+.video-item {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-#channels button:hover {
-    background-color: #005f6b;
+.thumbnail {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 8px;
 }
 
-#video-list {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 20px;
+.video-title {
+  font-size: 18px;
+  margin: 15px 0;
+  text-align: center;
 }
 
-.video-thumbnail {
-    margin: 10px;
-    cursor: pointer;
-    width: 200px;
+.video-link {
+  text-decoration: none;
+  color: #007BFF;
+  font-weight: bold;
 }
 
-#video-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-}
-
-#modal-content {
-    text-align: center;
-    background: #222;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-#close-modal {
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
-
-#close-modal:hover {
-    background-color: #ff1a1a;
+.video-link:hover {
+  text-decoration: underline;
 }
