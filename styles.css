@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+#channels {
+    margin-top: 20px;
+}
+
+#channels button {
+    background-color: #008cba;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+#channels button:hover {
+    background-color: #005f6b;
+}
+
+#video-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+.video-thumbnail {
+    margin: 10px;
+    cursor: pointer;
+    width: 200px;
+}
+
+#video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+#modal-content {
+    text-align: center;
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#close-modal {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#close-modal:hover {
+    background-color: #ff1a1a;
+}
